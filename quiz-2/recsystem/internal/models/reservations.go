@@ -1,4 +1,5 @@
-// Filename: internal/models/questions.go
+// Filename: internal/models/reservation.go
+// this file is used to show the fields of a reservation
 package models
 
 import (
@@ -9,18 +10,16 @@ import (
 
 // The Question model will represent a single question in our questions table
 type Reservation struct {
-	ReservationID int64
-	UserID int64
+	ReservationID   int64
+	UserID          int64
 	ReservationDate time.Time // date needs to be extracted
-	Duration int8 // expected time in minutes
-	PeopleCount int8 // number of people for the session
-	Notes  string
-	Approval bool
-	CreatedAt time.Time 
-
-    
-
+	Duration        int8      // expected time in minutes
+	PeopleCount     int8      // number of people for the session
+	Notes           string
+	Approval        bool
+	CreatedAt       time.Time
 }
+
 // The QuestionModel type will encapsulate the
 // DB connection pool that will be initialized
 // in the main() function
@@ -33,13 +32,13 @@ func (m *ReservationModel) Insert(body string) (int64, error) {
 	// id will be used to stored the unique identifier returned by
 	// PostgreSQL after adding the row to the table
 	var id int64
-	statement := 
-	            `
+	statement :=
+		`
 							INSERT INTO reservations(body)
 							VALUES($1)
-							RETURNING question_id
+							RETURNING reservation_id
 	            `
-	ctx, cancel := context.WithTimeout(context.Background(), 3 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 	err := m.DB.QueryRowContext(ctx, statement, body).Scan(&id)
 	if err != nil {
@@ -51,16 +50,16 @@ func (m *ReservationModel) Insert(body string) (int64, error) {
 func (m *ReservationModel) Get() (*Reservation, error) {
 	var res Reservation
 
-	statement := 
-	            `
-							SELECT question_id, body
+	statement :=
+		`
+							SELECT reservations_id, user_id, people_count
 							FROM reservations
 							ORDER BY RANDOM()
 							LIMIT 1
 	            `
-	ctx, cancel := context.WithTimeout(context.Background(), 3 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
-	err := m.DB.QueryRowContext(ctx, statement).Scan(&res.ReservationID, &res.UserID, &res.Duration, &res.PeopleCount,&res.Notes, &res.Approval,&res.CreatedAt)
+	err := m.DB.QueryRowContext(ctx, statement).Scan(&res.ReservationID, &res.UserID, &res.Duration, &res.PeopleCount, &res.Notes, &res.Approval, &res.CreatedAt)
 	if err != nil {
 		return nil, err
 	}

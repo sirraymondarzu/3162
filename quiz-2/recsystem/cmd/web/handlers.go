@@ -15,12 +15,12 @@ func (app *application) about(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) pollReplyShow(w http.ResponseWriter, r *http.Request) {
-	question, err := app.questions.Get()
+	reservation, err := app.questions.Get()
 	if err != nil {
 	    return
 	}
 	data := &templateData{
-	    Question: question,
+	    Reservation: reservation,
 	}
 	RenderTemplate(w, "poll.page.tmpl", data)
 }

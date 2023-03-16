@@ -2,10 +2,9 @@
 package main
 
 import (
-	"github.com/lewisdalwin/poll/internal/models"
+	"github.com/sirraymondarzu/3162/internal/models"
 )
 
 type templateData struct {
-	Question *models.Question
+	Reservation *models.reservation
 }
-

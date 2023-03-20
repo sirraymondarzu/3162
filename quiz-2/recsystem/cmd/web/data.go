@@ -6,5 +6,5 @@ import (
 )
 
 type templateData struct {
-	Reservation *models.reservation
+	Reservation *models.Reservation
 }

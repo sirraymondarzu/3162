@@ -1,3 +1,4 @@
+// main.go
 package main
 
 import (
@@ -14,10 +15,10 @@ import (
 )
 
 // Share data across our handlers
+
 type application struct {
-	questions models.QuestionModel
-	responses models.ResponseModel
-	options   models.OptionsModel
+	reservations models.ReservationModel
+	login        models.LoginModel
 }
 
 func main() {
@@ -35,9 +36,8 @@ func main() {
 
 	// share data across our handlers
 	app := &application{
-		questions: models.QuestionModel{DB: db},
-		responses: models.ResponseModel{DB: db},
-		options:   models.OptionsModel{DB: db},
+		reservations: models.ReservationModel{DB: db},
+		login:        models.LoginModel{DB: db},
 	}
 	// cleanup the connection pool
 	defer db.Close()

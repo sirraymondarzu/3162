@@ -1,3 +1,4 @@
+//templates.go
 package main
 
 import (

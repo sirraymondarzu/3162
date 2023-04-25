@@ -7,4 +7,5 @@ import (
 
 type templateData struct {
 	Reservation *models.Reservation
+	Login *models.LoginModel
 }

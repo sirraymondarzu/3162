@@ -1,4 +1,4 @@
-//templates.go
+//Filename:cmd/web/templates.go
 package main
 
 import (

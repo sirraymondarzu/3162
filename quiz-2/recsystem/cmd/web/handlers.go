@@ -1,4 +1,4 @@
-// handlers.go
+// Filename: cmd/web/handlers.go
 package main
 
 import (
